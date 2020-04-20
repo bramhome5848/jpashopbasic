@@ -29,7 +29,7 @@ public class Order {
     //양방향 연간관계 편의 메서드
     public void addOrderItemI(OrderItem orderItem) {
         orderItems.add(orderItem);
-        orderItem.setOrderPrice(this);
+        orderItem.setOrder(this);
     }
 
     public Long getId() {
