@@ -2,6 +2,8 @@ package jpabook.jpashop.domain;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "ORDERS") //order가 예약어로 걸려있는 경우가 많아 orders로 테이블명을 많이씀
@@ -11,14 +13,24 @@ public class Order {
     @Column(name = "ORDER_ID")
     private Long id;
 
-    @Column(name = "MEMBER_ID")
-    private long memberId;
+    @ManyToOne
+    @JoinColumn(name = "MEMEBER_ID")
+    private Member member;
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems = new ArrayList<>();
 
     //현재는 디비상에 orderDate로 올라가지만 SpringBoot에서는 기본설정 -> order_date로 올라감(camelcase)
     private LocalDateTime orderDate;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
+
+    //양방향 연간관계 편의 메서드
+    public void addOrderItemI(OrderItem orderItem) {
+        orderItems.add(orderItem);
+        orderItem.setOrderPrice(this);
+    }
 
     public Long getId() {
         return id;
@@ -28,12 +40,12 @@ public class Order {
         this.id = id;
     }
 
-    public long getMemberId() {
-        return memberId;
+    public Member getMember() {
+        return member;
     }
 
-    public void setMemberId(long memberId) {
-        this.memberId = memberId;
+    public void setMember(Member member) {
+        this.member = member;
     }
 
     public LocalDateTime getOrderDate() {
@@ -51,4 +63,6 @@ public class Order {
     public void setStatus(OrderStatus status) {
         this.status = status;
     }
+
+
 }
