@@ -1,7 +1,6 @@
 package jpabook.jpashop;
 
-import jpabook.jpashop.domain.Order;
-import jpabook.jpashop.domain.OrderItem;
+import jpabook.jpashop.domain.Book;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -22,10 +21,10 @@ public class JpaMain {
 
         try {
 
-            //주문
-            Order order = new Order();
-            order.addOrderItemI(new OrderItem());   //편의 메서드로 양방향 등록
-
+            Book book = new Book();
+            book.setName("JPA");
+            book.setAuthor("김영한");
+            em.persist(book);
             tx.commit();    //이 시점에 영속성 컨텍스트에 있는 것들에 대해서 쿼리가 날라감
         } catch (Exception e) {
             tx.rollback();
