@@ -17,6 +17,10 @@ public class Order {
     @JoinColumn(name = "MEMEBER_ID")
     private Member member;
 
+    @OneToOne
+    @JoinColumn(name = "DELIVERY_ID")
+    private Delivery delivery;
+
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems = new ArrayList<>();
 
@@ -26,7 +30,7 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
-    //양방향 연간관계 편의 메서드
+    //양방향 연간관계 편의 메서드`
     public void addOrderItemI(OrderItem orderItem) {
         orderItems.add(orderItem);
         orderItem.setOrder(this);

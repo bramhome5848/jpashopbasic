@@ -17,7 +17,7 @@ public class Member {
 
     //단방향 처리가 가장 좋음, 양방향이 필요할 경우
     //관례적으로 초기화
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member")     //Order의 member변수에 의해 매핑 되어짐
     private List<Order> orders = new ArrayList<>();
 
     public Long getId() {
